@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zu Writer</title>
+<meta name="description" content="Write text in the Zu alphabet from FEZ.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 5 5%22><rect width=%225%22 height=%225%22 fill=%22%23F4C542%22/></svg>">
+<link rel="preload" href="fonts/fez-alphabet.otf" as="font" type="font/otf" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 aria-label="Zu writer">ZU WRITER</h1>
+    <p class="sub">Zu writer <span>— write in the alphabet of FEZ</span></p>
+  </header>
+
+  <div class="layout">
+    <main>
+      <div class="panel stage-box">
+        <div class="stage" id="stage"><canvas id="cv" role="img" aria-label="Your text rendered in the Zu alphabet"></canvas></div>
+        <p class="hint" id="hint"></p>
+      </div>
+
+      <div class="panel editor">
+        <label class="top" for="txt">
+          Your text
+          <span class="check"><input type="checkbox" id="zuInput"> Show what I type as glyphs</span>
+        </label>
+        <textarea id="txt" spellcheck="false"></textarea>
+        <div class="keys" id="keys" aria-label="Glyph keyboard"></div>
+      </div>
+    </main>
+
+    <aside class="panel controls">
+      <fieldset class="full">
+        <legend>Writing style</legend>
+        <div class="seg" id="modes">
+          <label><input type="radio" name="mode" value="columns" checked><span><span class="t">Hexahedron columns</span><span class="d">Top to bottom, columns right to left, glyphs upright</span></span></label>
+          <label><input type="radio" name="mode" value="pillar"><span><span class="t">Hieroglyph pillar</span><span class="d">The whole message turned 90°, glyphs included</span></span></label>
+          <label><input type="radio" name="mode" value="rows"><span><span class="t">Plain rows</span><span class="d">Left to right, easiest to check your spelling</span></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="full">
+        <legend>Surface</legend>
+        <div class="seg" id="surfaces">
+          <label><input type="radio" name="surf" value="speech" checked><span class="swatch" style="background:#000"></span><span><span class="t">Speech box</span><span class="d">White on black, like dialogue</span></span></label>
+          <label><input type="radio" name="surf" value="pillar"><span class="swatch" style="background:#6E4B8C"></span><span><span class="t">Purple stone</span><span class="d">Carved into a pillar</span></span></label>
+          <label><input type="radio" name="surf" value="wall"><span class="swatch" style="background:#C9A77A"></span><span><span class="t">Village wall</span><span class="d">Painted on bricks</span></span></label>
+          <label><input type="radio" name="surf" value="paper"><span class="swatch" style="background:#EAD9A8"></span><span><span class="t">Old paper</span><span class="d">Inked like a found note</span></span></label>
+        </div>
+      </fieldset>
+
+      <div>
+        <label class="lab" for="len">Glyphs per column</label>
+        <div class="range-row"><input type="range" id="len" min="3" max="32" value="10"><output id="lenOut">10</output></div>
+      </div>
+      <div>
+        <label class="lab" for="size">Glyph size</label>
+        <div class="range-row"><input type="range" id="size" min="2" max="12" value="5"><output id="sizeOut">5</output></div>
+      </div>
+      <div class="full">
+        <label class="check"><input type="checkbox" id="gap" checked> Leave a blank square between words</label>
+      </div>
+
+      <div class="full">
+        <div class="btns">
+          <button class="act primary" id="play">Write it out</button>
+          <button class="act" id="save" hidden>Save PNG</button>
+        </div>
+        <p class="status" id="status" aria-live="polite"></p>
+      </div>
+    </aside>
+  </div>
+</div>
+<div class="tip" id="tip"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
