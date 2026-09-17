@@ -7,6 +7,7 @@
 <meta name="description" content="Write text in the Zu alphabet from FEZ.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 5 5%22><rect width=%225%22 height=%225%22 fill=%22%23F4C542%22/></svg>">
 <link rel="preload" href="fonts/fez-alphabet.otf" as="font" type="font/otf" crossorigin>
+<script type="importmap">{ "imports": { "three": "./js/vendor/three/build/three.module.min.js" } }</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -35,6 +36,57 @@
         <div class="add-row"><button class="act" id="addBox" type="button">Add text box</button></div>
         <div class="keys" id="keys" aria-label="Glyph keyboard"></div>
       </div>
+
+      <section class="panel model" aria-labelledby="modelTitle">
+        <div class="top"><span id="modelTitle">3D model</span><button class="link" id="fitView" type="button">Reset view</button></div>
+        <div class="model-body">
+          <div class="model-view" id="modelView">
+            <canvas id="mv" aria-label="3D preview of the model. Drag to turn it, scroll or pinch to zoom."></canvas>
+            <p class="model-empty" id="modelEmpty" hidden>Write something in a text box to build a model.</p>
+            <p class="model-hint">Drag to turn, scroll to zoom</p>
+          </div>
+          <div class="model-controls">
+            <div>
+              <span class="lab" id="shapeLabel">Shape</span>
+              <div class="chips" role="radiogroup" aria-labelledby="shapeLabel">
+                <label><input type="radio" name="shape" value="sign" checked><span>Sign</span></label>
+                <label><input type="radio" name="shape" value="glyphs"><span>Glyphs only</span></label>
+                <label><input type="radio" name="shape" value="pillar"><span>Pillar</span></label>
+              </div>
+              <p class="note" id="modelNote"></p>
+            </div>
+            <div id="reliefGroup">
+              <span class="lab" id="reliefLabel">Glyphs are</span>
+              <div class="chips" role="radiogroup" aria-labelledby="reliefLabel">
+                <label><input type="radio" name="relief" value="raised" checked><span>Raised</span></label>
+                <label><input type="radio" name="relief" value="engraved"><span>Carved in</span></label>
+              </div>
+            </div>
+            <div>
+              <label class="lab" for="depth" id="depthLabel">Raised height</label>
+              <div class="range-row"><input type="range" id="depth" min="1" max="4" value="1"><output id="depthOut">1</output></div>
+            </div>
+            <div id="baseRow">
+              <label class="lab" for="baseT">Base thickness</label>
+              <div class="range-row"><input type="range" id="baseT" min="1" max="6" value="2"><output id="baseOut">2</output></div>
+            </div>
+            <p class="note">Height and thickness are measured in glyph blocks (a glyph is 5 blocks wide).</p>
+            <div>
+              <label class="lab" for="mm">Size of one block</label>
+              <div class="range-row"><input type="range" id="mm" min="0.5" max="10" step="0.5" value="2"><output id="mmOut">2 mm</output></div>
+            </div>
+            <label class="check" id="borderRow"><input type="checkbox" id="border" checked> Include the speech box frame</label>
+            <p class="model-info" id="modelInfo" aria-live="polite"></p>
+            <div class="btns3">
+              <button class="act" id="dl-stl" type="button">STL</button>
+              <button class="act" id="dl-glb" type="button">GLB</button>
+              <button class="act" id="dl-obj" type="button">OBJ</button>
+            </div>
+            <p class="note">STL and OBJ are shape only, ready for 3D printing. GLB keeps the colours of the chosen surface, for Blender, games and the web.</p>
+            <p class="status" id="modelStatus" aria-live="polite"></p>
+          </div>
+        </div>
+      </section>
     </main>
 
     <aside class="panel controls">
@@ -117,5 +169,6 @@
 <script src="js/vendor/mp4-muxer.js"></script>
 <script src="js/save.js"></script>
 <script src="js/app.js"></script>
+<script type="module" src="js/model3d.js"></script>
 </body>
 </html>

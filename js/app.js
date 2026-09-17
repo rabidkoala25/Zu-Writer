@@ -206,6 +206,7 @@ function refresh() {
   cv.setAttribute("aria-label", `Zu alphabet rendering of box ${state.current + 1}: ${text.slice(0, 200)}`);
   const count = state.boxes.length;
   $("hint").textContent = (count > 1 ? `Box ${state.current + 1} of ${count}. ` : "") + HINTS[state.mode];
+  window.dispatchEvent(new CustomEvent("zu:change"));
   $("lenLabel").textContent = state.mode === "columns" ? "Glyphs per column" : state.mode === "pillar" ? "Glyphs per turned line" : "Glyphs per row";
 }
 
@@ -689,6 +690,9 @@ cv.addEventListener("mousemove", e => {
   else tip.style.display = "none";
 });
 cv.addEventListener("mouseleave", () => tip.style.display = "none");
+
+/* ---------- shared with the 3D model module ---------- */
+window.ZU = { state, layoutText, boxSize, glyph, SUPPORTED };
 
 /* ---------- boot ---------- */
 (async () => {
