@@ -11,7 +11,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
-
 </head>
 <body>
 <div class="wrap">
@@ -28,11 +27,12 @@
       </div>
 
       <div class="panel editor">
-        <label class="top" for="txt">
-          Your text
-          <span class="check"><input type="checkbox" id="zuInput"> Show what I type as glyphs</span>
-        </label>
-        <textarea id="txt" spellcheck="false"></textarea>
+        <div class="top">
+          <span>Text boxes</span>
+          <label class="check"><input type="checkbox" id="zuInput"> Show what I type as glyphs</label>
+        </div>
+        <div class="boxes" id="boxes"></div>
+        <div class="add-row"><button class="act" id="addBox" type="button">Add text box</button></div>
         <div class="keys" id="keys" aria-label="Glyph keyboard"></div>
       </div>
     </main>
@@ -58,7 +58,7 @@
       </fieldset>
 
       <div>
-        <label class="lab" for="len">Glyphs per column</label>
+        <label class="lab" for="len" id="lenLabel">Glyphs per column</label>
         <div class="range-row"><input type="range" id="len" min="3" max="32" value="10"><output id="lenOut">10</output></div>
       </div>
       <div>
@@ -69,18 +69,53 @@
         <label class="check"><input type="checkbox" id="gap" checked> Leave a blank square between words</label>
       </div>
 
-      <div class="full">
-        <div class="btns">
-          <button class="act primary" id="play">Write it out</button>
-          <button class="act" id="save" hidden>Save PNG</button>
+      <fieldset class="full anim">
+        <legend>Writing animation</legend>
+        <div class="stack">
+          <div>
+            <label class="lab" for="speed">Time per letter</label>
+            <div class="range-row"><input type="range" id="speed" min="0.02" max="0.3" step="0.01" value="0.1"><output id="speedOut">0.10 s</output></div>
+            <button class="link" id="speedReset" type="button">Use Hexahedron speed (0.10 s)</button>
+          </div>
+          <div>
+            <label class="lab" for="hold">Pause before next box</label>
+            <div class="range-row"><input type="range" id="hold" min="0.3" max="5" step="0.1" value="1.5"><output id="holdOut">1.5 s</output></div>
+          </div>
+          <div>
+            <span class="lab" id="bgLabel">Background behind the box</span>
+            <div class="chips" role="radiogroup" aria-labelledby="bgLabel">
+              <label><input type="radio" name="bg" value="sky" checked><span>Sky</span></label>
+              <label><input type="radio" name="bg" value="green"><span>Green screen</span></label>
+              <label><input type="radio" name="bg" value="black"><span>Black</span></label>
+            </div>
+          </div>
+          <div>
+            <span class="lab" id="scaleLabel">Export size</span>
+            <div class="chips" role="radiogroup" aria-labelledby="scaleLabel">
+              <label><input type="radio" name="scale" value="1"><span>1×</span></label>
+              <label><input type="radio" name="scale" value="2" checked><span>2×</span></label>
+              <label><input type="radio" name="scale" value="3"><span>3×</span></label>
+              <label><input type="radio" name="scale" value="4"><span>4×</span></label>
+            </div>
+          </div>
         </div>
+      </fieldset>
+
+      <div class="full">
+        <button class="act primary wide" id="play" type="button">Play all boxes</button>
+        <div class="btns">
+          <button class="act" id="gif" type="button">Download GIF</button>
+          <button class="act" id="video" type="button">Download video</button>
+        </div>
+        <button class="act wide" id="save" type="button">Save selected box as PNG</button>
         <p class="status" id="status" aria-live="polite"></p>
       </div>
     </aside>
   </div>
 </div>
 <div class="tip" id="tip"></div>
-
+<script src="js/vendor/mp4-muxer.js"></script>
+<script src="js/save.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

@@ -37,7 +37,7 @@ h1 { margin: 0; font-family: "FEZ"; font-weight: normal; font-size: 30px; line-h
 canvas { display: block; image-rendering: pixelated; max-width: none; }
 .hint { margin: 0; padding: 10px 14px; border-top: 2px solid var(--line); font-size: 15px; color: var(--soft); min-height: 44px; }
 .editor { margin-top: 18px; }
-.editor label.top { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 2px solid var(--line); font-weight: 600; flex-wrap: wrap; }
+.editor .top { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 2px solid var(--line); font-weight: 600; flex-wrap: wrap; }
 textarea {
   display: block; width: 100%; min-height: 130px; resize: vertical; border: 0; padding: 12px 14px;
   background: var(--field); color: var(--ink); font-family: var(--ui); font-size: 18px; line-height: 1.5; outline: none;
@@ -97,3 +97,29 @@ button[hidden] { display: none; }
   .controls { grid-template-columns: 1fr; }
   .stage-box { box-shadow: 4px 4px 0 var(--line); }
 }
+
+.boxes { display: grid; }
+.box-card { border-bottom: 2px solid var(--line); }
+.box-head { display: flex; align-items: center; gap: 6px; padding: 6px 8px 6px 12px; background: var(--panel); }
+.box-card.selected .box-head { background: var(--cube); color: var(--cube-ink); }
+.box-card.playing .box-head { outline: 3px dashed var(--ink); outline-offset: -5px; }
+.box-name { font-family: var(--ui); font-weight: 600; font-size: 15px; background: none; border: 0; color: inherit; cursor: pointer; padding: 2px 0; flex: 1; text-align: left; }
+.box-meta { font-size: 13px; opacity: .75; margin-right: 4px; }
+.tool { font-family: var(--ui); font-size: 14px; min-width: 32px; height: 30px; padding: 0 8px; border: 2px solid var(--line); background: var(--field); color: var(--ink); cursor: pointer; }
+.tool:disabled { opacity: .35; cursor: default; }
+.box-card textarea { min-height: 84px; }
+.editor.zu textarea { font-family: "FEZ", var(--ui); font-size: 22px; line-height: 1.7; letter-spacing: 0.12em; }
+.add-row { padding: 10px 12px; }
+.stack { display: grid; gap: 14px; }
+.anim { padding-top: 4px; }
+.link { font-family: var(--ui); font-size: 14px; background: none; border: 0; padding: 4px 0 0; color: var(--soft); text-decoration: underline; cursor: pointer; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips label { cursor: pointer; }
+.chips input { position: absolute; opacity: 0; pointer-events: none; }
+.chips span { display: inline-block; padding: 5px 10px; border: 2px solid var(--line); background: var(--field); font-size: 15px; }
+.chips input:checked + span { background: var(--cube); color: var(--cube-ink); }
+.chips input:focus-visible + span { outline: 3px solid var(--ink); outline-offset: 2px; }
+button.wide { width: 100%; margin: 8px 0; }
+.btns { margin: 0; }
+button.act:disabled { opacity: .5; cursor: progress; }
+progress { width: 100%; }
